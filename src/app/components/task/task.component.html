@@ -1,0 +1,41 @@
+<div class="p-grid">
+  <div class="p-align-center p-justify-center p-col-12 p-md-6 p-md-offset-3 p-lg-6 p-lg-offset-3">
+    <div class="todoSection">
+      <h1>todos</h1>
+    </div>
+    <p-card styleClass="ui-card-shadow">
+      <div>
+        <span class="ui-float-label">
+          <input id="float-input" class="todo-input" placeholder="What needs to be done?" [(ngModel)]="task" type="text"
+            size="30" pInputText (keydown.enter)="ara.click()" #ara (click)="onClickAdd()">
+        </span>
+      </div>
+      <ul class="task-list">
+        <li *ngFor="let todo of todos; let i = index">
+          <div class="input-group">
+            <p-checkbox class="todos-check" [(ngModel)]="todo.isCompleted" binary="true" name="group1"
+              inputId="check-{{i}}" (click)="onClickCompleteToggle(i)"></p-checkbox>
+            <label class="text-capitalize" for="check-{{i}}"
+              [ngClass]="{'text-muted font-weight-light font-italic strike-through': todo.isCompleted}">
+              {{todo.task}}
+              <i class="pi pi-times deleteIcon" (click)="onClickDelete(i)"></i>
+            </label>
+          </div>
+        </li>
+      </ul>
+      <div *ngIf="!firstOpened">
+        <div class=" btn-group task" role="group" aria-label="First group">
+          <button pButton pRipple type="button" icon="pi pi-list" (click)="onClickAll()" label="All"
+            class="p-button-rounded p-button-sm"></button>
+          <button pButton pRipple type="button" icon="pi pi-check" (click)="onClickActive()" label="Active"
+            class="p-button-rounded p-button-sm p-button-success"></button>
+          <button pButton pRipple type="button" icon="pi pi-bell" (click)="onClickCompleted()" label="Completed"
+            class="p-button-rounded p-button-sm p-button-warning"></button>
+          <button pButton pRipple type="button" icon="pi pi-times" (click)="onClickDeleteSelected()" label="Clear"
+            class="p-button-rounded p-button-sm p-button-danger"></button>
+        </div>
+        <div class="p-tag p-tag-warning todoLength"><i class="pi pi-info-circle"></i> {{todoLength}} items</div>
+      </div>
+    </p-card>
+  </div>
+</div>
